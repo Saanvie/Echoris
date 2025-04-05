@@ -1,0 +1,80 @@
+.LandingPageContainer {
+  width: 100vw;
+  height: 100vh;
+  /* background: linear-gradient(135deg, #1c1c1d, #fff1f1); */
+  background-color: #1b1b1b;
+  /* background: linear-gradient(to bottom, #f7e7ff, #fff2e0); */
+
+  /* color: rgb(137, 70, 209); */
+  /* text-shadow: 0 0 5px rgba(16, 8, 3, 0.5); */
+
+  /* background-color: 	#F5F5DC; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: rgb(132, 103, 158);
+}
+
+.backdrop {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+}
+
+.LandingPageContainer nav {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.LandingPageContainer nav h2 {
+  font-size: 2.5rem;
+  font-style: oblique;
+  font-weight: 500;
+}
+
+.LandingPageContainer nav .navList {
+  font-size: 1rem;
+  /* border: 1px solid rgb(120, 16, 109); */
+  padding: 0 1.4rem 0 1.4rem;
+  border-radius: 80px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+}
+
+.landingMainContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 3rem;
+  height: 70vh;
+  align-items: center;
+}
+
+.landingMainContainer > div:nth-child(1) {
+padding-top: 0px;
+  font-size: 1.7rem;
+}
+
+.landingMainContainer > div:nth-child(1) div[role="button"] {
+  background-color: rgb(255, 165, 0);
+  width: fit-content;
+  padding: 0.5rem;
+  padding-top: 0.2px;
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+.landingMainContainer > div:nth-child(1) div[role="button"] a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.landingMainContainer > div:nth-child(2) img {
+  margin-right: 0;
+  padding-right: 0;
+  height:50vh;
+  width: auto;
+}
