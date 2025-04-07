@@ -1,43 +1,55 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import MuiCard from '@mui/material/Card';
-import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import ForgotPassword from './ForgotPassword';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
-import { orange } from '@mui/material/colors';
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import MuiCard from "@mui/material/Card";
+// import Checkbox from "@mui/material/Checkbox";
+// import Divider from "@mui/material/Divider";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+import Link from "@mui/material/Link";
+import TextField from "@mui/material/TextField";
+// import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+// import ForgotPassword from "./ForgotPassword";
+// import { GoogleIcon, FacebookIcon, SitemarkIcon } from "./CustomIcons";
+// import { orange } from "@mui/material/colors";
+import { AuthContext } from "../contexts/AuthContexts";
+import { Snackbar } from "@mui/material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
+  display: "flex",
+  flexDirection: "column",
+  alignSelf: "center",
+  width: "100%",
   padding: theme.spacing(4),
   gap: theme.spacing(2),
   boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  [theme.breakpoints.up('sm')]: {
-    width: '450px',
+    "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
+  [theme.breakpoints.up("sm")]: {
+    width: "450px",
   },
-  ...theme.applyStyles('dark', {
+  ...theme.applyStyles("dark", {
     boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+      "hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px",
   }),
 }));
 
 export default function SignInCard() {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+  const [fullname, setFullname] = React.useState();
+  const [username, setUsername] = React.useState();
+  const [password, setPassword] = React.useState();
+  const [error, setError] = React.useState();
+  const [message, setMessage] = React.useState();
+
+  const [formState, setFormState] = React.useState(0);
+
+  const [fullnameError, setFullnameError] = React.useState(false);
+  const [fullnameErrorMessage, setFullnameErrorMessage] = React.useState("");
+  const [usernameError, setUsernameError] = React.useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -48,81 +60,154 @@ export default function SignInCard() {
     setOpen(false);
   };
 
-
   const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+    if (formState === 1 && (!fullname || fullname.trim() === "")) {
+      setFullnameError(true);
+      setFullnameErrorMessage("Please enter your name");
       isValid = false;
     } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
+      setFullnameError(false);
+      setFullnameErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!username || username.trim() === "") {
+      setUsernameError(true);
+      setUsernameErrorMessage("Please enter your username");
+      isValid = false;
+    } else {
+      setUsernameError(false);
+      setUsernameErrorMessage("");
+    }
+
+    if (!password || password.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+      setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
     } else {
       setPasswordError(false);
-      setPasswordErrorMessage('');
+      setPasswordErrorMessage("");
     }
 
     return isValid;
   };
 
+  const { handleRegister, handleLogin } = React.useContext(AuthContext);
+
+  let handleAuth = async () => {
+    try {
+      if (formState === 0) {
+        let result = await handleLogin(username, password);
+      }
+      if (formState === 1) {
+        let result = await handleRegister(fullname, username, password);
+        console.log(result);
+        setMessage(result);
+        setOpen(true);
+        setUsername("")
+        setError("");
+        setFormState(0);
+        setPassword("");
+      }
+    } catch (e) {
+      // Extract the actual string safely
+      let message = e?.response?.data?.message;
+
+      console.log("message to show:", message);
+      setError(message);
+    }
+  };
+
+  const handleClick = () => {
+    validateInputs();
+    handleAuth();
+  };
+
   return (
     <Card variant="outlined">
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <SitemarkIcon />
-      </Box>
-      <Typography
-        component="h1"
-        variant="h4"
-        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-      >
-        Sign in
-      </Typography>
+      <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
+
+      <div>
+        <Button
+          variant={formState === 0 ? "contained" : "outlined"}
+          onClick={() => {
+            setFormState(0);
+            setOpen(false);
+          }}
+        >
+          Sign in
+        </Button>
+        <Button
+          variant={formState === 1 ? "contained" : "outlined"}
+          onClick={() => {
+            setFormState(1);
+            setOpen(false);
+          }}
+        >
+          Sign Up
+        </Button>
+      </div>
       <Box
         component="form"
         noValidate
-        sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}
+        sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }}
       >
+        {formState === 1 ? (
+          <FormControl>
+            <FormLabel htmlFor="fullname">Full Name</FormLabel>
+            <TextField
+              error={fullnameError}
+              helperText={fullnameErrorMessage}
+              id="fullname"
+              type="fullname"
+              name="fullname"
+              placeholder=""
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+              color={fullnameError ? "error" : "primary"}
+              onChange={(e) => setFullname(e.target.value)}
+            />
+          </FormControl>
+        ) : (
+          <></>
+        )}
+
         <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="username">Username</FormLabel>
           <TextField
-            error={emailError}
-            helperText={emailErrorMessage}
-            id="email"
-            type="email"
-            name="email"
-            placeholder="your@email.com"
-            autoComplete="email"
+            error={usernameError}
+            helperText={usernameErrorMessage}
+            id="username"
+            type="username"
+            name="username"
+            placeholder=""
             autoFocus
             required
             fullWidth
             variant="outlined"
-            color={emailError ? 'error' : 'primary'}
+            color={usernameError ? "error" : "primary"}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </FormControl>
         <FormControl>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormLabel htmlFor="password">Password</FormLabel>
-            <Link
-              component="button"
-              type="button"
-              onClick={handleClickOpen}
-              variant="body2"
-              sx={{ alignSelf: 'baseline' }}
-            >
-              Forgot your password?
-            </Link>
+            {formState === 0 && (
+              <Link
+                component="button"
+                type="button"
+                onClick={handleClickOpen}
+                variant="body2"
+                sx={{ alignSelf: "baseline" }}
+              >
+                Forgot your password?
+              </Link>
+            )}
           </Box>
+
           <TextField
             error={passwordError}
             helperText={passwordErrorMessage}
@@ -135,29 +220,28 @@ export default function SignInCard() {
             required
             fullWidth
             variant="outlined"
-            color={passwordError ? 'error' : 'primary'}
+            color={passwordError ? "error" : "primary"}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
-        <ForgotPassword open={open} handleClose={handleClose} />
-        <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
-          Sign in
+
+        {/* {formState === 0 && open && (
+          <ForgotPassword open={open} handleClose={handleClose} />
+        )} */}
+
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <p style={{ color: "green" }}>{message}</p>
+
+        <Snackbar open={open} autoHideDuration={4000} message={message} />
+
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          onClick={handleClick}
+        >
+          {formState === 0 ? "Login" : "Register"}
         </Button>
-        <Typography sx={{ textAlign: 'center' }}>
-          Don&apos;t have an account?{' '}
-          <span>
-            <Link
-              href="/material-ui/getting-started/templates/sign-in/"
-              variant="body2"
-              sx={{ alignSelf: 'center' }}
-            >
-              Sign up
-            </Link>
-          </span>
-        </Typography>
       </Box>
     </Card>
   );

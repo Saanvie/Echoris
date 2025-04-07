@@ -29,8 +29,7 @@ const login = async (req, res) => {
       await user.save();
       return res.status(httpStatus.OK).json({ token: token });
     } else {
-      res.send('wrong pswd');
-      return console.log("Password doesnt match");
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "Username or password doesnt match" })
     }
   } catch (e) {
     return res.status(500).json({ message: `Something went wrong ${e}` });
@@ -38,7 +37,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, username, password } = req.body;
+  const { fullname, username, password } = req.body;
 
   try {
     const existingUser = await User.findOne({ username });
@@ -53,7 +52,7 @@ const register = async (req, res) => {
     console.log(`this is your ${hashedPassword}`);
 
     const newUser = new User({
-      name: name,
+      fullname: fullname,
       username: username,
       password: hashedPassword,
     });

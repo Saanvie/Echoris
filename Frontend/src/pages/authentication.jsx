@@ -1,20 +1,12 @@
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import React from "react";
+import { ThemeProvider, CssBaseline, Snackbar } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import AppTheme from "../shared-theme/AppTheme";
 import ColorModeSelect from "../shared-theme/ColorModeSelect";
 import SignInCard from "../components/SignInCard";
 
 export default function Authentication(props) {
-  // const [username, setUsername] = React.useState();
-  // const [password, setPassword] = React.useState();
-  // const [name, setName] = React.useState();
-  // const [erorr, setErorr] = React.useState();
-  // const [messages, setMessages] = React.useState();
-
-  // const [formState, setFormState] = React.useState(0);
-
-  // const[open, setOpen] = React.useState(false) ;
-  return (
+    return (
     <ThemeProvider theme={AppTheme}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
@@ -68,6 +60,7 @@ export default function Authentication(props) {
           </Stack>
         </Stack>
       </Stack>
+      
     </ThemeProvider>
   );
 }

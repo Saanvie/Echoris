@@ -19,7 +19,6 @@ app.use(express.urlencoded({limit: "40kb" , extended: "true"}));
 app.use("/api/v1/users", userRoutes);
 
 
-
 const start = async() => {  
     const connectionDb = await mongoose.connect("mongodb+srv://SaanvieDadwal:Mongodb001@echoris-db.a6wt3fc.mongodb.net/")
     

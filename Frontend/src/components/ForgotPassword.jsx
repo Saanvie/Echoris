@@ -29,7 +29,7 @@ function ForgotPassword({ open, handleClose }) {
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
         <DialogContentText>
-          Enter your account&apos;s email address, and we&apos;ll send you a link to
+          Enter your account's email address, and we'll send you a link to
           reset your password.
         </DialogContentText>
         <OutlinedInput
