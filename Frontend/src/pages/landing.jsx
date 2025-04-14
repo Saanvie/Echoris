@@ -1,36 +1,48 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import "../App.css"
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function LandingPage() {
+  const router = useNavigate();
   return (
-    <div className='LandingPageContainer'>
+    <div className="LandingPageContainer">
       <nav>
-        <div className='navHeader'>
+        <div className="navHeader">
           <h2>Echoris</h2>
         </div>
-        <div className='navList' >
-            <p>Join as guest</p>
-            <p>Register</p>
-            <div role='button'>
-              Login
-            </div>
+        <div className="navList">
+
+          <p onClick={()=>{
+            router("/hjkfe324");
+          }}>Join as guest</p>
+
+          <p onClick={() =>{
+            router("/auth");
+          }}>Register</p>
+
+          <div onClick={() =>{
+            router("/auth")
+          }} role="button">Login</div>
         </div>
       </nav>
 
-        <div className="landingMainContainer">
-          <div>
-            <h1><span style={{color:"orange"}}>Connect </span>with your loved ones</h1>
-            <p>Cover the distance </p>
-            <div role='button'>
-              <Link to={"/auth"}>Get started</Link>
-            </div>
-          </div>
-
-          <div>
-            <img src="/public/2.svg" alt="" />
+      <div className="landingMainContainer">
+        <div>
+          <h1>
+            <span style={{ color: "orange" }}>Connect </span>with your loved
+            ones
+          </h1>
+          <p>Cover the distance </p>
+          <div role="button">
+            <Link to={"/auth"}>Get started</Link>
           </div>
         </div>
-    </div>
-  )
-}
 
+        <div>
+          <img src="/public/2.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  );
+}

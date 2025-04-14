@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider, CssBaseline, Snackbar } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import Stack from '@mui/material/Stack';
 import AppTheme from "../shared-theme/AppTheme";
 import ColorModeSelect from "../shared-theme/ColorModeSelect";
 import SignInCard from "../components/SignInCard";
@@ -60,7 +60,8 @@ export default function Authentication(props) {
           </Stack>
         </Stack>
       </Stack>
-      
+
     </ThemeProvider>
   );
 }
+

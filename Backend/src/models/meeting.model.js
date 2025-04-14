@@ -1,4 +1,4 @@
-import {Schema, schema} from "mongoose";
+import  mongoose, {Schema} from "mongoose";
 
 const meetingSchema = new Schema(
     {
@@ -11,4 +11,3 @@ const meetingSchema = new Schema(
 const Meeting = mongoose.model("Meeting", meetingSchema);
 
 export {Meeting};
-
