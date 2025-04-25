@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   /* background: linear-gradient(135deg, #1c1c1d, #fff1f1); */
-  background-color: #1b1b1b;
+  background-image: url(../public/BgLandingPage.svg);
   /* background: linear-gradient(to bottom, #f7e7ff, #fff2e0); */
 
   /* color: rgb(137, 70, 209); */
@@ -11,7 +11,7 @@
   /* background-color: 	#F5F5DC; */
   background-repeat: no-repeat;
   background-size: cover;
-  color: rgb(132, 103, 158);
+  color: #f3a4ff;
 }
 
 .backdrop {
@@ -58,7 +58,7 @@ padding-top: 0px;
 }
 
 .landingMainContainer > div:nth-child(1) div[role="button"] {
-  background-color: rgb(255, 165, 0);
+  background-color: #fdebda;
   width: fit-content;
   padding: 0.5rem;
   padding-top: 0.2px;
@@ -68,7 +68,7 @@ padding-top: 0px;
 
 .landingMainContainer > div:nth-child(1) div[role="button"] a {
   text-decoration: none;
-  color: white;
+  color: rgb(56, 9, 90);
   font-size: 1.3rem;
 }
 
@@ -111,4 +111,36 @@ padding-top: 0px;
   width:50vw;
   height: auto;
   border-radius: 20px;
+}
+
+.authPage{
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../public/loginBg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.authBox{
+  border: 2px solid #ffffff;
+    height: 450px;
+    width: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+}
+
+.fullname{
+  border: 2px solid rgb(255, 255, 255);
+  width: 10vh;
+  height: 10vh;
+  /* display: flex;
+  justify-content:space-between;
+   */
 }

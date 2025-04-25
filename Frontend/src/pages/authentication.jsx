@@ -27,9 +27,9 @@ export default function Authentication(props) {
               position: "absolute",
               zIndex: -1,
               inset: 0,
-              backgroundImage:
-                "radial-gradient(ellipse at 50% 50%, hsl(215, 5.80%, 40.40%), hsl(0, 9.90%, 17.80%))",
+              backgroundImage:'url(../public/loginBg.svg)',
               backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
               ...theme.applyStyles?.("dark", {
                 backgroundImage:
                   "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",

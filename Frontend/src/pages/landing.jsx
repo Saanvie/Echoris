@@ -30,8 +30,7 @@ export default function LandingPage() {
       <div className="landingMainContainer">
         <div>
           <h1>
-            <span style={{ color: "orange" }}>Connect </span>with your loved
-            ones
+            <span style={{ color: "#fdebda" }}>Echoes</span> That Cross Realms
           </h1>
           <p>Cover the distance </p>
           <div role="button">
@@ -40,7 +39,7 @@ export default function LandingPage() {
         </div>
 
         <div>
-          <img src="/public/2.svg" alt="" />
+          <img src="../public/mainIcon.svg" alt="" />
         </div>
       </div>
     </div>

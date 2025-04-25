@@ -529,24 +529,21 @@ export default function VideoMeetComponent() {
         </div>
       ) : (
         <div className={styles.meetVideoContainer}>
-          {showModal ? (
+          {showModal && (
             <div className={styles.chatRoom}>
               <div className={styles.chatContainer}>
-                <h1>Chat</h1>
+                <h1 className={styles.chatTitle}>Chat</h1>
 
                 <div className={styles.chattingDisplay}>
-                  {messages.length !== 0 ? (
-                    messages.map((item, index) => {
-                      console.log(messages);
-                      return (
-                        <div style={{ marginBottom: "20px" }} key={index}>
-                          <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                          <p>{item.data}</p>
-                        </div>
-                      );
-                    })
+                  {messages.length ? (
+                    messages.map((item, index) => (
+                      <div className={styles.chatBubble} key={index}>
+                        <p className={styles.sender}>{item.sender}</p>
+                        <p className={styles.message}>{item.data}</p>
+                      </div>
+                    ))
                   ) : (
-                    <p>No Messages Yet</p>
+                    <p className={styles.noMessages}>No Messages Yet</p>
                   )}
                 </div>
 
@@ -555,18 +552,22 @@ export default function VideoMeetComponent() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     id="outlined-basic"
-                    label="Enter Your chat"
+                    label="Type a message"
                     variant="outlined"
+                    fullWidth
                   />
-                  <Button variant="contained" onClick={sendMessage}>
+                  <Button
+                    variant="contained"
+                    onClick={sendMessage}
+                    className={styles.sendButton}
+                  >
                     Send
                   </Button>
                 </div>
               </div>
             </div>
-          ) : (
-            <></>
           )}
+
 
           <div className={styles.buttonContainers}>
             <IconButton onClick={handleVideo} style={{ color: "white" }}>
@@ -601,28 +602,30 @@ export default function VideoMeetComponent() {
             </Badge>
           </div>
 
-          <video
-            className={styles.meetUserVideo}
-            ref={localVideoref}
-            autoPlay
-            muted
-          ></video>
+          <video className={styles.meetUserVideo} ref={localVideoref} autoPlay muted></video>
+
 
           <div className={styles.conferenceView}>
             {videos.map((video) => (
               <div key={video.socketId}>
                 <video
+
                   data-socket={video.socketId}
-                  ref={(ref) => {
+                  ref={ref => {
                     if (ref && video.stream) {
                       ref.srcObject = video.stream;
                     }
                   }}
                   autoPlay
-                ></video>
+                >
+                </video>
               </div>
+
             ))}
+
           </div>
+
+
         </div>
       )}
     </div>

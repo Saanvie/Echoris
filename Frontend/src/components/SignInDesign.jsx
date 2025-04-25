@@ -4,6 +4,9 @@ import { styled } from "@mui/material/styles";
 
 export const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
+  backdropFilter: 'blur(20px)',
+  backgroundColor: 'rgba(251, 251, 251, 0.2)',
+  width: "200px",
   flexDirection: "column",
   alignSelf: "center",
   width: "100%",
