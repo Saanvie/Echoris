@@ -1,7 +1,7 @@
 .meetVideoContainer {
   position: relative;
   height: 100vh;
-  background-image: url(../public/videoMeetBg.svg);
+  background-image: url(/videoMeetBg.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -130,3 +130,5 @@
 .sendButton {
   height: 56px;
 }
+
+/* styles.css */

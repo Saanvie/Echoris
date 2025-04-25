@@ -129,11 +129,11 @@ export default function SignInCard() {
       <Box
         component="form"
         noValidate
-        sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2, color: "common.white" }}
+        sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2}}
       >
         {formState === 1 ? (
           <FormControl>
-            <FormLabel sx={{ color: "white" }} htmlFor="fullname">Full Name</FormLabel>
+            <FormLabel htmlFor="fullname">Full Name</FormLabel>
             <TextField
               error={fullnameError}
               helperText={fullnameErrorMessage}
@@ -147,11 +147,6 @@ export default function SignInCard() {
               variant="outlined"
               color={fullnameError ? "error" : "primary"}
               onChange={(e) => setFullname(e.target.value)}
-              sx={{
-                "& .MuiInputBase-input": {
-                  color: "#fff",    
-                },
-              }}
             />
           </FormControl>
         ) : (
@@ -159,7 +154,7 @@ export default function SignInCard() {
         )}
 
         <FormControl>
-          <FormLabel sx={{ color: "white" }} htmlFor="username">Username</FormLabel>
+          <FormLabel htmlFor="username">Username</FormLabel>
           <TextField
             error={usernameError}
             helperText={usernameErrorMessage}
@@ -173,16 +168,11 @@ export default function SignInCard() {
             variant="outlined"
             color={usernameError ? "error" : "primary"}
             onChange={(e) => setUsername(e.target.value)}
-            sx={{
-              "& .MuiInputBase-input": {
-                color: "#fff",    
-              },
-            }}
           />
         </FormControl>
         <FormControl>
-          <Box sx={{ display: "flex", justifyContent: "space-between",color: "white" }}>
-            <FormLabel sx={{ color: "white" }} htmlFor="password">Password</FormLabel>
+          <Box sx={{ display: "flex", justifyContent: "space-between",}}>
+            <FormLabel htmlFor="password">Password</FormLabel>
             {/* {formState === 0 && (
               <Link
                 component="button"

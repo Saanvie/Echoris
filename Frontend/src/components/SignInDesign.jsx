@@ -9,7 +9,6 @@ export const Card = styled(MuiCard)(({ theme }) => ({
   width: "200px",
   flexDirection: "column",
   alignSelf: "center",
-  width: "100%",
   padding: theme.spacing(4),
   gap: theme.spacing(2),
   boxShadow:

@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   /* background: linear-gradient(135deg, #1c1c1d, #fff1f1); */
-  background-image: url(../public/BgLandingPage.svg);
+  background-image: url(/BgLandingPage.svg);
   /* background: linear-gradient(to bottom, #f7e7ff, #fff2e0); */
 
   /* color: rgb(137, 70, 209); */
@@ -75,9 +75,12 @@ padding-top: 0px;
 .landingMainContainer > div:nth-child(2) img {
   margin-right: 0;
   padding-right: 0;
-  height:50vh;
+  height: 50vh;
   width: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
+
 
 .navBar{
   display: flex;
@@ -88,35 +91,61 @@ padding-top: 0px;
   text-align: center;
 }
 
-.meetContainer{
+.meetContainer {
   display: flex;
-  padding-inline:20px;
-  height: 80vh;
-  gap: 10vh;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 40px;
+  gap: 20px;
+}
+
+.leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.leftPanel{
-  height: 100%;
+.rightPanel {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.rightPanel{
-  display: flex;
-  align-items: center;
-}
-
-.rightPanel> img{
-  width:50vw;
+.rightPanel img {
+  max-width: 100%;
   height: auto;
-  border-radius: 20px;
+  object-fit: contain;
 }
+
+/* ✅ Responsive styles */
+@media (max-width: 768px) {
+  .meetContainer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .rightPanel img {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .leftPanel h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .leftPanel > div {
+    align-items: center;
+  }
+}
+
 
 .authPage{
   width: 100vw;
   height: 100vh;
-  background-image: url(../public/loginBg.svg);
+  background-image: url(/loginBg.svg);
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -134,13 +163,4 @@ padding-top: 0px;
     align-items: center;
     backdrop-filter: blur(10px);
     border-radius: 20px;
-}
-
-.fullname{
-  border: 2px solid rgb(255, 255, 255);
-  width: 10vh;
-  height: 10vh;
-  /* display: flex;
-  justify-content:space-between;
-   */
 }

@@ -22,12 +22,12 @@ export default function Authentication(props) {
           },
           (theme) => ({
             "&::before": {
-              content: '""',
+              content: '""',              
               display: "block",
               position: "absolute",
               zIndex: -1,
               inset: 0,
-              backgroundImage:'url(../public/loginBg.svg)',
+              backgroundImage:'url(/loginBg.svg)',
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               ...theme.applyStyles?.("dark", {

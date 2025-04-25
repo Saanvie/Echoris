@@ -97,7 +97,7 @@ function HomeComponent() {
                     </div>
                 </div>
                 <div className="rightPanel">
-                    <img srcSet="../public/3.svg" alt="" />
+                    <img src="/3.svg" alt="meeting visual" />
                 </div>
             </div>
         </>

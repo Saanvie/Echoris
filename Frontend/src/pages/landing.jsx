@@ -39,7 +39,7 @@ export default function LandingPage() {
         </div>
 
         <div>
-          <img src="../public/mainIcon.svg" alt="" />
+          <img src="/mainIcon.svg" alt="" />
         </div>
       </div>
     </div>
