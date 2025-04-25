@@ -10,4 +10,7 @@ export default defineConfig({
     },
     include: '**/*.js',
   })],
+  build: {
+    chunkSizeWarningLimit: 1000, // increase limit (default is 500 KB)
+  }
 });
