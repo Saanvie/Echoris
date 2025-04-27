@@ -47,7 +47,7 @@ export default function VideoMeetComponent() {
 
   let [messages, setMessages] = useState([]);
 
-  let [message, setMessage] = useState();
+  let [message, setMessage] = useState("");
 
 
   let [newMessages, setNewMessages] = useState(3);//
@@ -360,6 +360,21 @@ export default function VideoMeetComponent() {
     connectToSocketServer();
   }
 
+  let silence = () => {
+    let ctx = new AudioContext()
+    let oscillator = ctx.createOscillator()
+    let dst = oscillator.connect(ctx.createMediaStreamDestination())
+    oscillator.start()
+    ctx.resume()
+    return Object.assign(dst.stream.getAudioTracks()[0], { enabled: false })
+  }
+  let black = ({ width = 640, height = 480 } = {}) => {
+    let canvas = Object.assign(document.createElement("canvas"), { width, height })
+    canvas.getContext('2d').fillRect(0, 0, width, height)
+    let stream = canvas.captureStream()
+    return Object.assign(stream.getVideoTracks()[0], { enabled: false })
+  }
+
   let connect = () => {
     setAskForUsername(false);
     getMedia();
@@ -387,6 +402,8 @@ export default function VideoMeetComponent() {
   };
 
   let sendMessage = () => {
+    if (message.trim() === "") return;
+
     console.log(socketRef.current);
     socketRef.current.emit("chat-message", message, username);
     setMessage("");
@@ -501,8 +518,15 @@ export default function VideoMeetComponent() {
               </div>
 
               <div className={styles.chattingArea}>
-                <TextField value={message} onChange={e => setMessage(e.target.value)} id="outlined-basic" label="Enter your messages" variant="outlined" />
+                <TextField
+                  value={message}
+                  onChange={e => setMessage(e.target.value)} // Only update state
+                  id="outlined-basic"
+                  label="Enter your messages"
+                  variant="outlined"
+                />
                 <Button variant="contained" onClick={sendMessage}>Send</Button>
+
               </div>
             </div>
           </div> : <></>}
@@ -511,9 +535,7 @@ export default function VideoMeetComponent() {
             <IconButton onClick={handleVideo} style={{ color: "white" }}>
               {(video == true) ? <VideocamIcon /> : <VideocamOffIcon />}
             </IconButton>
-            <IconButton onClick={handleEndCall} style={{ color: "red" }}>
-              <CallEndIcon />
-            </IconButton>
+
             <IconButton onClick={handleAudio} style={{ color: "white" }}>
               {audio === true ? <MicIcon /> : <MicOffIcon />}
             </IconButton>
@@ -524,6 +546,9 @@ export default function VideoMeetComponent() {
               </IconButton>) : (<></>)
             }
 
+            <IconButton onClick={handleEndCall} style={{ color: "red" }}>
+              <CallEndIcon />
+            </IconButton>
 
             <Badge badgeContent={newMessages} max={999} color="orange">
               <IconButton
@@ -533,6 +558,8 @@ export default function VideoMeetComponent() {
                 <ChatIcon /> {" "}
               </IconButton>
             </Badge>
+
+
           </div>
 
           <video className={styles.meetUserVideo} ref={localVideoRef} autoPlay muted></video>
@@ -540,18 +567,22 @@ export default function VideoMeetComponent() {
           <div className={styles.conferenceView} >
 
             {videos.map((video) => (
-              <div key={video.socketId}>
+              <div key={video.socketId} className="video-box">
                 <h2>{video.socketId}</h2>
 
-                <video
-                  data-socket={video.socketId}
-                  ref={(ref) => {
-                    if (ref && video.stream) {
-                      ref.srcObject = video.stream;
-                    }
-                  }}
-                  autoPlay
-                ></video>
+                <div className="shared-screen-container">
+                  <video
+                    className="shared-screen-video"
+                    data-socket={video.socketId}
+                    ref={(ref) => {
+                      if (ref && video.stream) {
+                        ref.srcObject = video.stream;
+                      }
+                    }}
+                    autoPlay
+                    playsInline
+                  ></video>
+                </div>
               </div>
             ))}
           </div>
